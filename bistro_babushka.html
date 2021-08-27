@@ -9,12 +9,11 @@
   <body>
     <section class="container"></section>
     <template>
-      <article id="person">
-        <h2 class="navn"></h2>
+      <article id="mad">
         <img src="" alt="" />
-        <p class="email"></p>
-        <p class="titel"></p>
-        <p class="hobby"></p>
+        <h2 class="navn"></h2>
+        <p class="kortbeskrivelse"></p>
+        <p class="pris"></p>
       </article>
     </template>
 
@@ -36,20 +35,20 @@
       function vis(json) {
         console.log(json);
 
-        // const container = document.querySelector(".container");
-        // const template = document.querySelector("template");
+        const container = document.querySelector(".container");
+        const template = document.querySelector("template");
 
-        // json.forEach((person) => {
-        //   const klon = template.cloneNode(true).content;
-        //   klon.querySelector(
-        //     "h2"
-        //   ).textContent = `${person.fornavn} ${person.efternavn}`;
-        //   klon.querySelector("img").src = "faces/" + person.billede;
-        //   klon.querySelector(".email").textContent = `Email: ${person.email}`;
-        //   klon.querySelector(".titel").textContent = `Titel: ${person.titel}`;
-        //   klon.querySelector(".hobby").textContent = `Hobby: ${person.hobby}`;
-        //   container.appendChild(klon);
-        // });
+        json.forEach((mad) => {
+          const klon = template.cloneNode(true).content;
+          klon.querySelector("img").src = mad.billede;
+          klon.querySelector("h2").textContent = mad.navn;
+
+          klon.querySelector(".kortbeskrivelse").textContent =
+            mad.kortbeskrivelse;
+          klon.querySelector(".pris").textContent = `Pris: ${mad.pris},-`;
+
+          container.appendChild(klon);
+        });
       }
       hentData();
     </script>
