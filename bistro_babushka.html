@@ -7,7 +7,6 @@
     <title>Bistro Babushka</title>
   </head>
   <body>
-    <h1>Persongalleri</h1>
     <section class="container"></section>
     <template>
       <article id="person">
@@ -20,11 +19,11 @@
     </template>
 
     <script>
-      const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
+      const url = "https://babushka-dd8a.restdb.io/rest/menu";
 
       const options = {
         headers: {
-          "x-apikey": "600fe9211346a1524ff12e31",
+          "x-apikey": "600ec2fb1346a1524ff12de4",
         },
       };
 
@@ -37,20 +36,20 @@
       function vis(json) {
         console.log(json);
 
-        const container = document.querySelector(".container");
-        const template = document.querySelector("template");
+        // const container = document.querySelector(".container");
+        // const template = document.querySelector("template");
 
-        json.forEach((person) => {
-          const klon = template.cloneNode(true).content;
-          klon.querySelector(
-            "h2"
-          ).textContent = `${person.fornavn} ${person.efternavn}`;
-          klon.querySelector("img").src = "faces/" + person.billede;
-          klon.querySelector(".email").textContent = `Email: ${person.email}`;
-          klon.querySelector(".titel").textContent = `Titel: ${person.titel}`;
-          klon.querySelector(".hobby").textContent = `Hobby: ${person.hobby}`;
-          container.appendChild(klon);
-        });
+        // json.forEach((person) => {
+        //   const klon = template.cloneNode(true).content;
+        //   klon.querySelector(
+        //     "h2"
+        //   ).textContent = `${person.fornavn} ${person.efternavn}`;
+        //   klon.querySelector("img").src = "faces/" + person.billede;
+        //   klon.querySelector(".email").textContent = `Email: ${person.email}`;
+        //   klon.querySelector(".titel").textContent = `Titel: ${person.titel}`;
+        //   klon.querySelector(".hobby").textContent = `Hobby: ${person.hobby}`;
+        //   container.appendChild(klon);
+        // });
       }
       hentData();
     </script>
