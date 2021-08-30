@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bistro Babushka</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+
+      .mad {
+        padding: 1em;
+      }
+
+      button {
+        background-color: #800000;
+        border: none;
+        border-radius: 15px;
+        color: white;
+        padding: 12px 30px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px;
+      }
+
+      button:hover {
+        background-color: black;
+      }
+
+      button.valgt {
+        background-color: black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Menu</h1>
+      <nav>
+        <button data-kategori="alle" class="valgt">Menu</button>
+        <button data-kategori="forretter">Forretter</button>
+        <button data-kategori="hovedretter">Hovedretter</button>
+        <button data-kategori="sideorders">Sideorders</button>
+        <button data-kategori="desserter">Desserter</button>
+        <button data-kategori="drikkevarer">Drikkevarer</button>
+      </nav>
+    </header>
+    <section id="liste"></section>
+
+    <template>
+      <article id="mad">
+        <h2 class="navn"></h2>
+        <img src="" alt="" class="billede" />
+        <p class="kortbeskrivelse"></p>
+        <p class="pris"></p>
+      </article>
+    </template>
+
+    <script>
+      const header = document.querySelector("header h1");
+
+      const myHeaders = {
+        "x-apikey": "600ec2fb1346a1524ff12de4",
+      };
+      document.addEventListener("DOMContentLoaded", start);
+      let retter;
+      let filter = "alle";
+
+      function start() {
+        const filterKnapper = document.querySelectorAll("nav button");
+        filterKnapper.forEach((knap) =>
+          knap.addEventListener("click", filtrerRetter)
+        );
+
+        loadJSON();
+      }
+
+      function filtrerRetter() {
+        filter = this.dataset.kategori;
+        document.querySelector(".valgt").classList.remove("valgt");
+        this.classList.add("valgt");
+
+        visRetter();
+        const header = document.querySelector("header h1");
+        header.textContent = this.textContent;
+      }
+
+      async function loadJSON() {
+        const JSONData = await fetch(
+          "https://babushka-dd8a.restdb.io/rest/menu",
+          {
+            headers: myHeaders,
+          }
+        );
+        retter = await JSONData.json();
+        console.log("Retter", retter);
+        visRetter();
+      }
+
+      function visRetter() {
+        const dest = document.querySelector("#liste");
+        const skabelon = document.querySelector("template").content;
+        dest.textContent = "";
+        retter.forEach((mad) => {
+          console.log("Kategori", mad.kategori);
+
+          if (filter == mad.kategori || filter == "alle") {
+            const klon = skabelon.cloneNode(true);
+            klon.querySelector(".navn").textContent = mad.navn;
+            klon.querySelector(".billede").src = "billeder/" + mad.billede;
+            klon.querySelector(".kortbeskrivelse").textContent =
+              mad.kortbeskrivelse;
+            klon.querySelector(".pris").textContent = `Pris: ${mad.pris},-`;
+            dest.appendChild(klon);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
