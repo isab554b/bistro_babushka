@@ -63,7 +63,7 @@
 
         json.forEach((mad) => {
           const klon = template.cloneNode(true).content;
-          klon.querySelector("img").src = mad.billede;
+          klon.querySelector("img").src = "billeder/" + mad.billede;
           klon.querySelector("h2").textContent = mad.navn;
 
           klon.querySelector(".kortbeskrivelse").textContent =
