@@ -47,6 +47,36 @@
       button.valgt {
         background-color: black;
       }
+
+      #popup {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.8);
+        overflow: scroll;
+      }
+
+      #popup article {
+        width: 40vw;
+        display: flex;
+        flex-direction: column;
+        margin: 4rem auto;
+        border-radius: 25px;
+        padding: 12px;
+        background-color: white;
+      }
+
+      #luk {
+        position: fixed;
+        padding: 1em;
+        font-size: 1.7em;
+        font-weight: bolder;
+        color: white;
+        cursor: pointer;
+      }
     </style>
   </head>
 
@@ -72,6 +102,17 @@
         <p class="pris"></p>
       </article>
     </template>
+
+    <section id="popup">
+      <div id="luk">X</div>
+      <article>
+        <h2 class="navn"></h2>
+        <img src="" alt="" class="billede" />
+        <p class="oprindelsesregion"></p>
+        <p class="langbeskrivelse"></p>
+        <p class="pris"></p>
+      </article>
+    </section>
 
     <script>
       const header = document.querySelector("header h1");
@@ -128,10 +169,29 @@
             klon.querySelector(".kortbeskrivelse").textContent =
               mad.kortbeskrivelse;
             klon.querySelector(".pris").textContent = `Pris: ${mad.pris},-`;
+            klon
+              .querySelector("#mad")
+              .addEventListener("click", () => visDetaljer(mad));
             dest.appendChild(klon);
           }
         });
       }
+      function visDetaljer(mad) {
+        console.log(mad);
+        popup.style.display = "block";
+        popup.querySelector(".navn").textContent = mad.navn;
+        popup.querySelector(".billede").src = "billeder/" + mad.billede;
+        popup.querySelector(
+          ".oprindelsesregion"
+        ).textContent = `Oprindelsesregion: ${mad.oprindelsesregion}`;
+        popup.querySelector(".langbeskrivelse").textContent =
+          mad.langbeskrivelse;
+        popup.querySelector(".pris").textContent = `Pris: ${mad.pris},-`;
+      }
+
+      document
+        .querySelector("#luk")
+        .addEventListener("click", () => (popup.style.display = "none"));
     </script>
   </body>
 </html>
