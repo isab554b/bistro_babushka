@@ -10,7 +10,7 @@
       }
       body {
         font-family: Arial, Helvetica, sans-serif;
-        max-width: 1200px;
+        /* max-width: 1200px; */
         margin: 0 auto;
       }
 
@@ -19,7 +19,15 @@
         height: auto;
       }
 
-      section {
+      #forside {
+        width: 100%;
+        height: 100vh;
+        background-image: url(splash.jpg);
+        background-size: cover;
+        background-position: 0% 10%;
+      }
+
+      #liste {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         gap: 25px;
@@ -33,10 +41,10 @@
         overflow-x: auto;
       }
 
-      h1 {
+      header h2 {
         display: flex;
         justify-content: center;
-        font-size: 3em;
+        font-size: 2.5em;
       }
 
       button {
@@ -94,7 +102,9 @@
 
   <body>
     <header>
-      <h1>Menu</h1>
+      <section id="forside"></section>
+
+      <h2>Menu</h2>
       <nav>
         <button data-kategori="alle" class="valgt">Menu</button>
         <button data-kategori="forretter">Forretter</button>
@@ -127,7 +137,7 @@
     </section>
 
     <script>
-      const header = document.querySelector("header h1");
+      const header = document.querySelector("header h2");
 
       const myHeaders = {
         "x-apikey": "600ec2fb1346a1524ff12de4",
@@ -151,7 +161,7 @@
         this.classList.add("valgt");
 
         visRetter();
-        const header = document.querySelector("header h1");
+        const header = document.querySelector("header h2");
         header.textContent = this.textContent;
       }
 
